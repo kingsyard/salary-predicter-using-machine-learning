@@ -35,16 +35,16 @@ def predict():
     int_features = [int(x) for x in request.form.values()]
     final_features = [np.array(int_features)]
     prediction = model.predict(final_features)
-    a1=final_features[0]
-    b1=final_features[1]
-    c1=final_features[2]
-    print(a1,b1,c1)
+
+
+    output = round(prediction[0], 2)
+    a1=int_features[0]
+    b1=int_features[1]
+    c1=int_features[2]
+    
     db.child("names").push({"score1":a1})
     db.child("names").push({"score2":b1})
     db.child("names").push({"score3":c1})
-
-    output = round(prediction[0], 2)
-
     return render_template('index.html', prediction_text='Employee Salary should be $ {}'.format(output))
 
 
